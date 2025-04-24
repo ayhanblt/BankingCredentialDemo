@@ -1,55 +1,40 @@
 # Banking Credential Demo
 
-Bu proje, basit bir bankacılık uygulaması demo'sudur. React, TypeScript ve SQLite kullanılarak geliştirilmiştir.
+This project is a simple login system simulating an online banking login flow.
 
-## Özellikler
+## Technologies
 
-- Kullanıcı girişi ve çıkışı
-- Hesap bakiyesi görüntüleme
-- Son işlemler listesi
-- Yaklaşan ödemeler takibi
-- Para transferi
-- Modern ve responsive tasarım
-
-## Teknolojiler
-
-- React
-- TypeScript
+- React + TypeScript
 - SQLite (Drizzle ORM)
-- Tailwind CSS
-- Shadcn/ui
+- Tailwind CSS + Shadcn/ui
 - Wouter (Routing)
 - Vite
 
-## Kurulum
+## Setup
 
-1. Projeyi klonlayın:
-```bash
-git clone [repository-url]
-cd BankingCredentialDemo
-```
+1. Clone the repository:
+   git clone [repository-url]
+   cd BankingCredentialDemo
 
-2. Bağımlılıkları yükleyin:
-```bash
-npm install
-```
+2. Install dependencies:
+   npm install
 
-3. Uygulamayı başlatın:
-```bash
-npm run dev
-```
+3. Start the app:
+   npm run dev
 
-## Kullanım
+## Login Info
 
-1. Tarayıcınızda `http://localhost:3000` adresine gidin
-2. Giriş bilgileri:
-   - Kullanıcı adı: `admin`
-   - Şifre: `1234`
+Open the app in your browser at: http://localhost:3000
 
-## Veritabanı
+Use the following credentials:
+- Username: admin
+- Password: 1234
 
-Uygulama SQLite veritabanı kullanmaktadır. Veritabanı şeması otomatik olarak oluşturulacaktır.
+## Database
 
-## Lisans
+- Uses SQLite.
+- The database schema is automatically created on first run.
+
+## License
 
 MIT
