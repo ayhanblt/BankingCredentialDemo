@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Secure Dashboard</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f7f9;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+    header {
+      background-color: #ffffff;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      padding: 16px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .logo {
+      font-size: 20px;
+      font-weight: bold;
+      color: #333;
+    }
+    .logout-btn {
+      padding: 8px 16px;
+      background-color: #e74c3c;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      text-decoration: none;
+      font-size: 14px;
+    }
+    .logout-btn:hover {
+      background-color: #c0392b;
+    }
+    .container {
+      flex: 1;
+      padding: 24px;
+      max-width: 1200px;
+      margin: 0 auto;
+      width: 100%;
+      box-sizing: border-box;
+    }
+    .dashboard-card {
+      background-color: #ffffff;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      padding: 24px;
+      margin-bottom: 24px;
+    }
+    h1 {
+      color: #333;
+      margin-top: 0;
+    }
+    p {
+      color: #666;
+      line-height: 1.6;
+    }
+    .token-info {
+      margin-top: 16px;
+      padding: 16px;
+      background-color: #f8f9fa;
+      border-radius: 4px;
+      border-left: 4px solid #4a90e2;
+    }
+    .token-info p {
+      margin: 8px 0;
+    }
+    .warning {
+      color: #e67e22;
+      font-weight: bold;
+    }
+    .success-message {
+      color: #27ae60;
+      font-weight: bold;
+      text-align: center;
+      font-size: 18px;
+      margin-bottom: 20px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">Secure Auth App</div>
+    <a href="/logout" class="logout-btn">Logout</a>
+  </header>
+  
+  <div class="container">
+    <div class="dashboard-card">
+      <p class="success-message">✅ Authentication successful!</p>
+      <h1>Welcome to the Secure Dashboard</h1>
+      <p>You have successfully logged in using a secure multi-step JWT authentication process.</p>
+      
+      <div class="token-info">
+        <p>Your authentication is handled securely via HttpOnly cookies, which means:</p>
+        <ul>
+          <li>Your tokens are not accessible via JavaScript</li>
+          <li>Your access token expires after 15 minutes</li>
+          <li>Your refresh token will automatically get you a new access token when needed</li>
+          <li>All requests to protected routes are verified by checking your token</li>
+        </ul>
+        <p class="warning">Note: For demonstration purposes only. In a production environment, you would have more security measures in place.</p>
+      </div>
+    </div>
+    
+    <div class="dashboard-card">
+      <h2>Security Information</h2>
+      <p>This application implements a 3-step JWT authentication process:</p>
+      <ol>
+        <li><strong>Short-lived login token (JWT1)</strong> - expires in 1 minute<br>
+            <small>Used only during the login process to request access token</small></li>
+        <li><strong>Medium-lived access token (JWT2)</strong> - expires in 15 minutes<br>
+            <small>Used to access protected resources</small></li>
+        <li><strong>Long-lived refresh token (JWT3)</strong> - expires in 7 days<br>
+            <small>Used to obtain new access tokens without re-authenticating</small></li>
+      </ol>
+      <p>All tokens are stored as HttpOnly, Secure cookies and are not accessible via JavaScript. This prevents XSS attacks from stealing your tokens.</p>
+    </div>
+
+    <div class="dashboard-card">
+      <h2>Protected Content</h2>
+      <p>This section is only visible to authenticated users. The server has verified your access token before serving this page.</p>
+      <p>If your access token expires while browsing, the application will automatically attempt to use your refresh token to get a new access token without requiring you to log in again.</p>
+    </div>
+  </div>
+
+  <script>
+    // This script cannot access any of the auth tokens due to HttpOnly flag
+    document.addEventListener('DOMContentLoaded', function() {
+      console.log("Dashboard loaded - Note: Auth tokens are not accessible to JavaScript");
+    });
+  </script>
+</body>
+</html>
