@@ -59,10 +59,25 @@ app.use((req, res, next) => {
     serveStatic(app);
   }
 
-  // ALWAYS serve the app on port from .env or fallback to 3000
-  // this serves both the API and the client.
-  const port = process.env.PORT || 3000;
-  server.listen(port, () => {
-    log(`serving on port ${port}`);
-  });
+  // Try to serve on port from .env or fallback to 3000
+  // If that port is busy, try up to 3005
+  let port = parseInt(process.env.PORT || "3000");
+  const maxPort = port + 5;
+  
+  const startServer = () => {
+    server.listen(port, () => {
+      log(`serving on port ${port}`);
+    }).on('error', (err: NodeJS.ErrnoException) => {
+      if (err.code === 'EADDRINUSE' && port < maxPort) {
+        log(`Port ${port} is busy, trying ${port + 1}`);
+        port++;
+        startServer();
+      } else {
+        log(`Error starting server: ${err.message}`);
+        throw err;
+      }
+    });
+  };
+  
+  startServer();
 })();
